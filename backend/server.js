@@ -1,16 +1,16 @@
 const express = require("express");
 // const bodyParser = require("body-parser");
 const db = require("./db");
-const authRoutes = require('./routes/authRoutes');
-const pokemonRoutes = require('./routes/pokemonRoutes');
-const { APP_PORT } = require("../.env")
+const authRoutes = require("./routes/authRoutes");
+const pokemonRoutes = require("./routes/pokemonRoutes");
+const { APP_PORT } = require("../.env");
 
-db.on('error', (error) => {
-  console.log('Error: Database not Connected', error)
-  process.exit(0)
-})
+db.on("error", (error) => {
+  console.log("Error: Database not Connected", error);
+  process.exit(0);
+});
 
-db.on('open', () => console.log('Database connection established'))
+db.on("open", () => console.log("Database connection established"));
 
 var app = express();
 app

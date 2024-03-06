@@ -4,7 +4,7 @@ const pokemonSchema = new mongoose.Schema({
   id_value: {
     type: Number,
     required: true,
-    unique: true
+    unique: true,
   },
   generation: {
     type: Number,
@@ -27,7 +27,7 @@ const pokemonSchema = new mongoose.Schema({
     required: true,
   },
   shiny_image: {
-    type: String
+    type: String,
   },
 });
 

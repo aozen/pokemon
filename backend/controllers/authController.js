@@ -65,7 +65,8 @@ const login = async (req, res) => {
     // Check: https://aliozendev.com/post/securing-your-go-web-app-with-jwt-authentication
     console.log(JWT_SECRET_KEY);
     console.log(user._id);
-    const token = jwt.sign({ userId: user._id }, "asd", { //FIXME: JWT_SECRET_KEY undefined
+    const token = jwt.sign({ userId: user._id }, "asd", {
+      //FIXME: JWT_SECRET_KEY undefined
       expiresIn: "3h",
     });
 

@@ -9,15 +9,15 @@ const updatePokemons = async (req, res) => {
   }
 
   const pokemons = await fetchPokemons(req.body.generation);
-  
+
   try {
     updatePokemonsTable(pokemons, req.body.generation);
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Server Error" })
+    return res.status(500).json({ message: "Server Error" });
   }
 
-  return res.status(200).json({ message: "OK"});
+  return res.status(200).json({ message: "OK" });
 };
 
 const fetchPokemons = async (generation) => {
@@ -57,11 +57,9 @@ let fetchPokemonListByGeneration = (generation) => {
   return apiCall(url);
 };
 
-
 const updatePokemonsTable = async (pokemons, generation) => {
-
   pokemons.forEach(async (pokemon) => {
-    console.log('#######################################################')
+    console.log("#######################################################");
     console.log(pokemon.name);
     console.log(pokemon.id);
     let typesArray = pokemon.types.map((types) => types.type.name);

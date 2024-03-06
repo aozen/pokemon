@@ -5,7 +5,7 @@ const { updateValidator } = require("../validations/pokemon.validator.js");
 
 router.post("/update", updateValidator, pokemonController.updatePokemons);
 
-router.get("/generation", pokemonController.getPokemons)
+router.get("/generation", pokemonController.getPokemons);
 
 router.get("/type", pokemonController.getByType);
 

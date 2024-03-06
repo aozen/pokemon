@@ -8,7 +8,7 @@ function verifyToken(req, res, next) {
   }
 
   try {
-    console.log(token)
+    console.log(token);
     const decoded = jwt.verify(token, "asd"); //FIXME: JWT_SECRET_KEY undefined
     console.log(decoded);
     req.userId = decoded.userId;
