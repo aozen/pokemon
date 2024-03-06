@@ -2,6 +2,7 @@ const express = require("express");
 // const bodyParser = require("body-parser");
 const db = require("./db");
 const authRoutes = require('./routes/authRoutes');
+const pokemonRoutes = require('./routes/pokemonRoutes');
 const { APP_PORT } = require("../.env")
 
 db.on('error', (error) => {
@@ -16,7 +17,8 @@ app
   // .use(bodyParser.urlencoded({ extended: true }))
   .use(express.json())
   .use(express.urlencoded({ extended: false }))
-  .use("", authRoutes);
+  .use("/poke", authRoutes)
+  .use("/poke", pokemonRoutes);
 
 const PORT = APP_PORT || 3000;
 app.listen(PORT, () => {
