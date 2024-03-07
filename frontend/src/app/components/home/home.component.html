@@ -33,7 +33,11 @@
 
   <form [formGroup]="fetchPokemonsForm" (ngSubmit)="getPokemons()">
     <label for="password">Generation: </label>
-    <input id="generation" type="text" formControlName="generation" />
+    <select id="generation" formControlName="generation">
+        <option value="1" selected>Generation 1</option>
+        <option value="2">Generation 2</option>
+        <option value="3">Generation 3</option>
+      </select>
 
     <div
       *ngIf="
