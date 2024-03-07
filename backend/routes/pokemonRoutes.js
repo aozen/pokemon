@@ -13,7 +13,7 @@ router.post(
 
 router.post("/generation", verifyToken, pokemonController.getPokemons);
 
-router.get("/type", verifyToken, pokemonController.getByType);
+router.post("/type", verifyToken, pokemonController.getByType);
 
 router.get("/random", verifyToken, pokemonController.getShiny);
 

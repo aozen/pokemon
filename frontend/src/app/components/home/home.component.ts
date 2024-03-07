@@ -9,29 +9,52 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class HomeComponent {
   pokemons!: object;
+  pokemonTypes: string[];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.pokemonTypes = [
+      'normal',
+      'fighting',
+      'flying',
+      'poison',
+      'ground',
+      'rock',
+      'bug',
+      'ghost',
+      'steel',
+      'fire',
+      'water',
+      'grass',
+      'electric',
+      'psychic',
+      'ice',
+      'dragon',
+      'dark',
+      'fairy',
+      'unknown',
+      'shadow',
+    ];
+  }
 
-  updatePokemonsForm = new FormGroup({
+  generationForm = new FormGroup({
     generation: new FormControl('', [Validators.required]),
   });
 
-  fetchPokemonsForm = new FormGroup({
-    generation: new FormControl('', [Validators.required]),
-  });
+  typeForm = new FormGroup({
+    type: new FormControl('', [
+      Validators.required
+    ])
+  })
 
   onSubmit() {
-    // this.displayPokemons();
     this.http
       .post<any>(
         'http://localhost:3000/poke/update',
-        this.updatePokemonsForm.value
+        this.generationForm.value
       )
       .subscribe({
         next: (resp) => {
           console.log(resp);
-          alert('updated');
-          // this.displayPokemons();
         },
         error: (err) => {
           console.log(err);
@@ -41,31 +64,36 @@ export class HomeComponent {
   }
 
   getPokemons() {
-    console.log(this.fetchPokemonsForm.value);
     this.http
       .post<any>(
         'http://localhost:3000/poke/generation',
-        this.fetchPokemonsForm.value
+        this.generationForm.value
       )
       .subscribe({
         next: (resp) => {
-          // alert('updated');
-          console.log(typeof resp.pokemons);
-          this.displayPokemons(resp.pokemons);
-          // this.pokemons = resp.pokemons;
+          this.pokemons = resp.pokemons;
         },
         error: (err) => {
           console.log(err);
-          alert('not updated');
         },
       });
   }
 
-  displayPokemons = (pokemons: any) => {
-    console.log(pokemons[0].name);
-    // console.log(typeof Object.keys(pokemons))
-    console.log(typeof pokemons[0]);
-    this.pokemons = pokemons;
-    // console.log(typeof this.pokemons[0]);
-  };
+  getPokemonsByType() {
+    console.log(this.typeForm.value)
+    this.http
+    .post<any>(
+      'http://localhost:3000/poke/type',
+      this.typeForm.value
+    )
+    .subscribe({
+      next: (resp) => {
+        this.pokemons = resp.pokemons;
+      },
+      error: (err) => {
+        console.log(err);
+        alert('not updated');
+      },
+    });
+  }
 }
