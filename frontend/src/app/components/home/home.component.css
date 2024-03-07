@@ -86,6 +86,17 @@ p {
 
 .submitButton {
   margin-top: 10px;
+  display: inline-block;
+  outline: 0;
+  border: 0;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 16px;
+  font-weight: 600;
+  border: 1px solid rgba(105, 105, 105, 0.432);
+  line-height: 26px;
 }
 
 .content-layout {
