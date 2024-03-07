@@ -8,11 +8,10 @@ function verifyToken(req, res, next) {
   }
 
   try {
-    console.log(token);
+    token = token.replace(/['"]+/g, ''); // removed double quotes from start and end of the string
     const decoded = jwt.verify(token, "asd"); //FIXME: JWT_SECRET_KEY undefined
     console.log(decoded);
     req.userId = decoded.userId;
-    console.log(req.userId);
     next();
   } catch (error) {
     res.status(401).json({ error: "Invalid token" });
