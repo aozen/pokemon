@@ -41,26 +41,22 @@ export class HomeComponent {
   });
 
   typeForm = new FormGroup({
-    type: new FormControl('', [
-      Validators.required
-    ])
+    type: new FormControl('', [Validators.required]),
   });
 
-  shinyForm = new FormGroup({})
+  shinyForm = new FormGroup({});
 
-  onSubmit() {
+  updatePokemons() {
     this.http
-      .post<any>(
-        'http://localhost:3000/poke/update',
-        this.generationForm.value
-      )
+      .post<any>('http://localhost:3000/poke/update', this.generationForm.value)
       .subscribe({
         next: (resp) => {
           console.log(resp);
+          alert('Updated! Lets view');
         },
         error: (err) => {
           console.log(err);
-          alert('not updated');
+          alert('Server Error');
         },
       });
   }
@@ -77,41 +73,36 @@ export class HomeComponent {
         },
         error: (err) => {
           console.log(err);
+          alert('Server Error');
         },
       });
   }
 
   getPokemonsByType() {
-    console.log(this.typeForm.value)
     this.http
-    .post<any>(
-      'http://localhost:3000/poke/type',
-      this.typeForm.value
-    )
-    .subscribe({
-      next: (resp) => {
-        this.pokemons = resp.pokemons;
-      },
-      error: (err) => {
-        console.log(err);
-        alert('not updated');
-      },
-    });
+      .post<any>('http://localhost:3000/poke/type', this.typeForm.value)
+      .subscribe({
+        next: (resp) => {
+          this.pokemons = resp.pokemons;
+        },
+        error: (err) => {
+          console.log(err);
+          alert('Server Error');
+        },
+      });
   }
 
   getShinyPokemon() {
     this.http
-    .post<any>(
-      'http://localhost:3000/poke/random',
-      this.typeForm.value
-    )
-    .subscribe({
-      next: (resp) => {
-        this.pokemons = resp.pokemons;
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+      .post<any>('http://localhost:3000/poke/random', this.typeForm.value)
+      .subscribe({
+        next: (resp) => {
+          this.pokemons = resp.pokemons;
+        },
+        error: (err) => {
+          console.log(err);
+          alert('Server Error');
+        },
+      });
   }
 }

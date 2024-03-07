@@ -85,6 +85,21 @@ p {
   grid-gap: 7px;
 }
 
+.submitButton{
+  margin-top: 10px;
+}
+
+.content-layout {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
+}
+
+.note { 
+  font-size: 1rem;
+  font-weight: 300;
+}
+
 .background-color-bug {
   background: -o-linear-gradient(180deg, #729f3f 50%, #729f3f 50%);
   background: linear-gradient(180deg, #729f3f 50%, #729f3f 50%);

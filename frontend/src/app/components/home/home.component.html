@@ -1,10 +1,9 @@
+<div class="content-layout">
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto">
-  <h1 class="display-4">Update Pokemons</h1>
-  <p class="lead">asdasd</p>
-
-  <form [formGroup]="generationForm" (ngSubmit)="onSubmit()">
+  <h3>Update by generation</h3>
+  <form [formGroup]="generationForm" (ngSubmit)="updatePokemons()">
     <select id="generation" formControlName="generation">
-      <option value="1" selected>Generation 1</option>
+      <option value="1">Generation 1</option>
       <option value="2">Generation 2</option>
       <option value="3">Generation 3</option>
     </select>
@@ -22,14 +21,13 @@
     </div>
     <br />
 
-    <button type="submit" [disabled]="!generationForm.valid">
+    <button type="submit" class="submitButton" [disabled]="!generationForm.valid">
       Update Pokemons
     </button>
   </form>
 </div>
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto">
-  <h1 class="display-4">Update Pokemons</h1>
-  <p class="lead">asdasd</p>
+  <h3>Filter by generation</h3>
 
   <form [formGroup]="generationForm" (ngSubmit)="getPokemons()">
     <label for="password">Generation: </label>
@@ -51,20 +49,14 @@
       </div>
     </div>
     <br />
-    <br />
 
-    <button type="submit" [disabled]="!generationForm.valid">
-      Display Pokemons
+    <button class="submitButton" type="submit" [disabled]="!generationForm.valid">
+      Show Pokemons
     </button>
   </form>
 </div>
-<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-  <h1 class="display-4"></h1>
-  <p class="lead"></p>
-  <div class="poke-cointainer"></div>
-</div>
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto">
-    <h1 class="display-4">Get Pokemons By Type</h1>
+    <h3>Filter by type</h3>
   
     <form [formGroup]="typeForm" (ngSubmit)="getPokemonsByType()">
         <select id="type" formControlName="type"> 
@@ -85,24 +77,22 @@
         </div>
       </div>
       <br />
-      <br />
   
-      <button type="submit" [disabled]="!typeForm.valid">
-        Display Pokemons
+      <button type="submit" class="submitButton" [disabled]="!typeForm.valid">
+        Show Pokemons
       </button>
     </form>
   </div>
-
   <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto">
-    <h1 class="display-4">Get Shiny Pokemon</h1>
+    <h3>Get Shiny</h3>
   
     <form [formGroup]="shinyForm" (ngSubmit)="getShinyPokemon()">
       <button type="submit">
-        Get the shiny
+        I feel lucky
       </button>
     </form>
   </div>
-
+</div>
 <div class="layout">
   <div class="poke-li" *ngFor="let pokemon of pokemons | keyvalue">
     <p class="poke-p">
