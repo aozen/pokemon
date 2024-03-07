@@ -1,75 +1,82 @@
 <div class="content-layout">
-<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto">
-  <h3>Update by generation</h3>
-  <form [formGroup]="generationForm" (ngSubmit)="updatePokemons()">
-    <select id="generation" formControlName="generation">
-      <option value="1">Generation 1</option>
-      <option value="2">Generation 2</option>
-      <option value="3">Generation 3</option>
-    </select>
+  <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto">
+    <h3>Update by generation</h3>
+    <form [formGroup]="generationForm" (ngSubmit)="updatePokemons()">
+      <select id="generation" formControlName="generation">
+        <option value="1">Generation 1</option>
+        <option value="2">Generation 2</option>
+        <option value="3">Generation 3</option>
+      </select>
 
-    <div
-      *ngIf="
-        generationForm.controls.generation.invalid &&
-        (generationForm.controls.generation.dirty ||
-          generationForm.controls.generation.touched)
-      "
-    >
-      <div *ngIf="generationForm.controls.generation.errors?.['required']">
-        generation is required.
+      <div
+        *ngIf="
+          generationForm.controls.generation.invalid &&
+          (generationForm.controls.generation.dirty ||
+            generationForm.controls.generation.touched)
+        "
+      >
+        <div *ngIf="generationForm.controls.generation.errors?.['required']">
+          generation is required.
+        </div>
       </div>
-    </div>
-    <br />
+      <br />
 
-    <button type="submit" class="submitButton" [disabled]="!generationForm.valid">
-      Update Pokemons
-    </button>
-  </form>
-</div>
-<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto">
-  <h3>Filter by generation</h3>
+      <button
+        type="submit"
+        class="submitButton"
+        [disabled]="!generationForm.valid"
+      >
+        Update Pokemons
+      </button>
+    </form>
+  </div>
+  <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto">
+    <h3>Filter by generation</h3>
 
-  <form [formGroup]="generationForm" (ngSubmit)="getPokemons()">
-    <label for="password">Generation: </label>
-    <select id="generation" formControlName="generation">
+    <form [formGroup]="generationForm" (ngSubmit)="getPokemons()">
+      <label for="password">Generation: </label>
+      <select id="generation" formControlName="generation">
         <option value="1" selected>Generation 1</option>
         <option value="2">Generation 2</option>
         <option value="3">Generation 3</option>
       </select>
 
-    <div
-      *ngIf="
-        generationForm.controls.generation.invalid &&
-        (generationForm.controls.generation.dirty ||
-          generationForm.controls.generation.touched)
-      "
-    >
-      <div *ngIf="generationForm.controls.generation.errors?.['required']">
-        generation is required.
+      <div
+        *ngIf="
+          generationForm.controls.generation.invalid &&
+          (generationForm.controls.generation.dirty ||
+            generationForm.controls.generation.touched)
+        "
+      >
+        <div *ngIf="generationForm.controls.generation.errors?.['required']">
+          generation is required.
+        </div>
       </div>
-    </div>
-    <br />
+      <br />
 
-    <button class="submitButton" type="submit" [disabled]="!generationForm.valid">
-      Show Pokemons
-    </button>
-  </form>
-</div>
-<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto">
+      <button
+        class="submitButton"
+        type="submit"
+        [disabled]="!generationForm.valid"
+      >
+        Show Pokemons
+      </button>
+    </form>
+  </div>
+  <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto">
     <h3>Filter by type</h3>
-  
+
     <form [formGroup]="typeForm" (ngSubmit)="getPokemonsByType()">
-        <select id="type" formControlName="type"> 
-            <option *ngFor="let type of pokemonTypes" [value]="type"> 
-                {{type}} 
-            </option> 
-        </select> 
-  
+      <select id="type" formControlName="type">
+        <option *ngFor="let type of pokemonTypes" [value]="type">
+          {{ type }}
+        </option>
+      </select>
+
       <div
         *ngIf="
           typeForm.controls.type.invalid &&
-          (typeForm.controls.type.dirty ||
-            typeForm.controls.type.touched)
+          (typeForm.controls.type.dirty || typeForm.controls.type.touched)
         "
       >
         <div *ngIf="typeForm.controls.type.errors?.['required']">
@@ -77,7 +84,7 @@
         </div>
       </div>
       <br />
-  
+
       <button type="submit" class="submitButton" [disabled]="!typeForm.valid">
         Show Pokemons
       </button>
@@ -85,11 +92,9 @@
   </div>
   <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto">
     <h3>Get Shiny</h3>
-  
+
     <form [formGroup]="shinyForm" (ngSubmit)="getShinyPokemon()">
-      <button type="submit">
-        I feel lucky
-      </button>
+      <button type="submit">I feel lucky</button>
     </form>
   </div>
 </div>
@@ -107,7 +112,8 @@
       <div *ngFor="let type of pokemon.value['type'] | keyvalue">
         <div class="abilities">
           <span class="pill background-color-{{ type.value }}">
-            {{ type.value }}</span>
+            {{ type.value }}</span
+          >
         </div>
       </div>
     </div>
