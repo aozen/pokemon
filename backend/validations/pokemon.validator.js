@@ -1,6 +1,6 @@
 const { body } = require("express-validator");
 
-const updateValidator = [
+const pokemonValidator = [
   body("generation").notEmpty().withMessage("Generation Shouldnt be empty"),
   body("generation")
     .isInt({ min: 1, max: 3 })
@@ -8,5 +8,5 @@ const updateValidator = [
 ];
 
 module.exports = {
-  updateValidator,
+  pokemonValidator,
 };

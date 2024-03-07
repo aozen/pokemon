@@ -16,7 +16,6 @@ const updatePokemons = async (req, res) => {
     console.log(error);
     return res.status(500).json({ message: "Server Error" });
   }
-
   return res.status(200).json({ message: "OK" });
 };
 
@@ -106,29 +105,36 @@ const updatePokemonsTable = async (pokemons, generation) => {
 };
 
 const getPokemons = async (req, res) => {
-  const pokemons = await Pokemon.find({ generation: req.body.generation })
-  .sort({id_value: 1});
+  const pokemons = await Pokemon.find({ generation: req.body.generation }).sort(
+    { id_value: 1 }
+  );
 
-  return res.status(200).json({ message: "OK", pokemons: pokemons});
-
+  return res.status(200).json({ message: "OK", pokemons: pokemons });
 };
 
 const getByType = async (req, res) => {
-  const pokemons = await Pokemon.find({ type: req.body.type  })
-  .sort({id_value: 1});
+  const pokemons = await Pokemon.find({ type: req.body.type }).sort({
+    id_value: 1,
+  });
 
-  return res.status(200).json({ message: "OK", pokemons: pokemons});
+  return res.status(200).json({ message: "OK", pokemons: pokemons });
 };
 
 const getShiny = async (req, res) => {
-  const shinyCount = await Pokemon.countDocuments({ shiny_image: { $exists: true } });
+  const shinyCount = await Pokemon.countDocuments({
+    shiny_image: { $exists: true },
+  });
   const randomIndex = Math.floor(Math.random() * shinyCount);
-  const randomShinyPokemon = await Pokemon.findOne({ shiny_image: { $exists: true } }).skip(randomIndex);
+  const randomShinyPokemon = await Pokemon.findOne({
+    shiny_image: { $exists: true },
+  }).skip(randomIndex);
   if (!randomShinyPokemon) {
     return res.status(404).json({ message: "No shiny Pokemon found" });
   }
 
-  return res.status(200).json({ message: "OK", pokemons: [randomShinyPokemon] });
+  return res
+    .status(200)
+    .json({ message: "OK", pokemons: [randomShinyPokemon] });
 };
 
 module.exports = {

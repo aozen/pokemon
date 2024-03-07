@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const pokemonController = require("../controllers/pokemonController");
-const { updateValidator } = require("../validations/pokemon.validator.js");
+const { pokemonValidator } = require("../validations/pokemon.validator.js");
 const { verifyToken } = require("../middleware/authMiddleware");
 
 router.post(
   "/update",
-  updateValidator,
+  pokemonValidator,
   verifyToken,
   pokemonController.updatePokemons
 );
