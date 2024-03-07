@@ -1,0 +1,19 @@
+<form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+  <label for="password">Email: </label>
+  <input id="email" type="email" formControlName="email" />
+
+  <div *ngIf="signUpForm.controls.email.invalid && (signUpForm.controls.email.dirty || signUpForm.controls.email.touched)">
+    <div *ngIf="signUpForm.controls.email.errors?.['required']">email is required.</div>
+    <div *ngIf="signUpForm.controls.email.errors?.['email']">Please email</div>
+  </div><br />
+
+  <label for="password">password: </label>
+  <input id="password" type="password" formControlName="password"/>
+
+  <div *ngIf="signUpForm.controls.password.invalid && (signUpForm.controls.password.dirty || signUpForm.controls.password.touched)">
+    <div *ngIf="signUpForm.controls.password.errors?.['required']">password is required.</div>
+    <div *ngIf="signUpForm.controls.password.errors?.['minlength']">At least 6 char</div>
+  </div><br />
+
+  <button type="submit" [disabled]="!signUpForm.valid">REGISTER</button>
+</form>
