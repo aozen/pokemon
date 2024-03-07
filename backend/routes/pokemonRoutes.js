@@ -15,6 +15,6 @@ router.post("/generation", verifyToken, pokemonController.getPokemons);
 
 router.post("/type", verifyToken, pokemonController.getByType);
 
-router.get("/random", verifyToken, pokemonController.getShiny);
+router.post("/random", verifyToken, pokemonController.getShiny);
 
 module.exports = router;

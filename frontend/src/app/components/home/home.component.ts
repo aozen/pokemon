@@ -44,7 +44,9 @@ export class HomeComponent {
     type: new FormControl('', [
       Validators.required
     ])
-  })
+  });
+
+  shinyForm = new FormGroup({})
 
   onSubmit() {
     this.http
@@ -93,6 +95,22 @@ export class HomeComponent {
       error: (err) => {
         console.log(err);
         alert('not updated');
+      },
+    });
+  }
+
+  getShinyPokemon() {
+    this.http
+    .post<any>(
+      'http://localhost:3000/poke/random',
+      this.typeForm.value
+    )
+    .subscribe({
+      next: (resp) => {
+        this.pokemons = resp.pokemons;
+      },
+      error: (err) => {
+        console.log(err);
       },
     });
   }
