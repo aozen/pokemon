@@ -1,16 +1,17 @@
 const jwt = require("jsonwebtoken");
-const { JWT_SECRET_KEY } = require("../../.env");
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, "../../.env") });
 
 function verifyToken(req, res, next) {
   var token = req.header("Authorization");
   if (!token) {
+    console.log("NO TOKEN");
     return res.status(401).json({ message: "Unauthorized" });
   }
 
   try {
-    token = token.replace(/['"]+/g, ''); // removed double quotes from start and end of the string
-    const decoded = jwt.verify(token, "asd"); //FIXME: JWT_SECRET_KEY undefined
-    console.log(decoded);
+    token = token.replace(/['"]+/g, ""); // removed double quotes from start and end of the string
+    const decoded = jwt.verify(token, JWT_SECRET_KEY);
     req.userId = decoded.userId;
     next();
   } catch (error) {

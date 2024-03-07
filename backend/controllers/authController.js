@@ -1,20 +1,21 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { JWT_SECRET_KEY } = require("../../.env");
 const { validationResult } = require("express-validator");
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, "../../.env") });
 
 const register = async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+      console.log(errors);
       return res.status(400).json({ errors: errors });
     }
 
-    console.log(req);
     const email = req.body.email;
     const password = req.body.password;
-    console.log(email, password);
+
     // Check user exists
     const user = await User.findOne({ email });
     if (user) {
@@ -63,10 +64,7 @@ const login = async (req, res) => {
 
     // Create JWT Token
     // Check: https://aliozendev.com/post/securing-your-go-web-app-with-jwt-authentication
-    console.log(JWT_SECRET_KEY);
-    console.log(user._id);
-    const token = jwt.sign({ userId: user._id }, "asd", {
-      //FIXME: JWT_SECRET_KEY undefined
+    const token = jwt.sign({ userId: user._id }, JWT_SECRET_KEY, {
       expiresIn: "3h",
     });
 
