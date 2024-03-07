@@ -11,7 +11,7 @@ router.post(
   pokemonController.updatePokemons
 );
 
-router.get("/generation", verifyToken, pokemonController.getPokemons);
+router.post("/generation", verifyToken, pokemonController.getPokemons);
 
 router.get("/type", verifyToken, pokemonController.getByType);
 

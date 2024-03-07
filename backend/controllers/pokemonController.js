@@ -106,7 +106,12 @@ const updatePokemonsTable = async (pokemons, generation) => {
 };
 
 const getPokemons = async (req, res) => {
-  console.log("get pokemons");
+  const pokemons = await Pokemon.find({ generation: req.body.generation })
+  .sort({id_value: 1})
+  .collation({locale: "en_US", numericOrdering: true});
+
+  return res.status(200).json({ message: "OK", pokemons: pokemons});
+
 };
 
 const getByType = async (req, res) => {
