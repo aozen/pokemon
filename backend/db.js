@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
-const { MONGODB_URI } = require("../.env");
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
-mongoose.connect("mongodb://localhost:27017/pokemon"); //FIXME: .env not works
-
-// const db = mongoose.connection;
+mongoose.connect(process.env.MONGODB_URI);
 
 module.exports = mongoose.connection;

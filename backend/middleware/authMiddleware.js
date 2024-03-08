@@ -11,7 +11,7 @@ function verifyToken(req, res, next) {
 
   try {
     token = token.replace(/['"]+/g, ""); // removed double quotes from start and end of the string
-    const decoded = jwt.verify(token, JWT_SECRET_KEY);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
     req.userId = decoded.userId;
     next();
   } catch (error) {

@@ -12,10 +12,4 @@ router.post("/register", registerValidator, authController.register);
 
 router.post("/login", loginValidator, authController.login);
 
-router.get("/checkUser", verifyToken, (req, res) => {
-  res
-    .status(200)
-    .json({ message: "Logged in Successfully", userId: req.userId });
-});
-
 module.exports = router;

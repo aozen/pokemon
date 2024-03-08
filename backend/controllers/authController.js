@@ -64,7 +64,7 @@ const login = async (req, res) => {
 
     // Create JWT Token
     // Check: https://aliozendev.com/post/securing-your-go-web-app-with-jwt-authentication
-    const token = jwt.sign({ userId: user._id }, JWT_SECRET_KEY, {
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, {
       expiresIn: "3h",
     });
 
