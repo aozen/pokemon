@@ -1,19 +1,20 @@
-<form [formGroup]="loginForm" (ngSubmit)="login()">
-  <label for="password">Email: </label>
-  <input id="email" type="email" formControlName="email" />
+<div class="container">
+  <div class="card">
+    <h2>Login</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <input id="email" type="email" formControlName="email" placeholder="Email"/>
+      <div *ngIf="loginForm.controls.email.invalid && (loginForm.controls.email.dirty || loginForm.controls.email.touched)">
+        <div *ngIf="loginForm.controls.email.errors?.['required']">email is required.</div>
+        <div *ngIf="loginForm.controls.email.errors?.['email']">Please email</div>
+      </div><br />
 
-  <div *ngIf="loginForm.controls.email.invalid && (loginForm.controls.email.dirty || loginForm.controls.email.touched)">
-    <div *ngIf="loginForm.controls.email.errors?.['required']">email is required.</div>
-    <div *ngIf="loginForm.controls.email.errors?.['email']">Please email</div>
-  </div><br />
+      <input type="password" id="password" formControlName="password" placeholder="Password">
+      <div *ngIf="loginForm.controls.password.invalid && (loginForm.controls.password.dirty || loginForm.controls.password.touched)">
+        <div *ngIf="loginForm.controls.password.errors?.['required']">password is required.</div>
+        <div *ngIf="loginForm.controls.password.errors?.['minlength']">At least 6 char</div>
+      </div><br />
 
-  <label for="password">password: </label>
-  <input id="password" type="password" formControlName="password"/>
-
-  <div *ngIf="loginForm.controls.password.invalid && (loginForm.controls.password.dirty || loginForm.controls.password.touched)">
-    <div *ngIf="loginForm.controls.password.errors?.['required']">password is required.</div>
-    <div *ngIf="loginForm.controls.password.errors?.['minlength']">At least 6 char</div>
-  </div><br />
-
-  <button type="submit" [disabled]="!loginForm.valid">LOGIN</button>
-</form>
+      <button type="submit" [disabled]="!loginForm.valid">Login</button>
+    </form>
+  </div>
+</div>
