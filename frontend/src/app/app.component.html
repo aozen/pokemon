@@ -31,8 +31,14 @@
   <nav class="my-2 my-md-0 mr-md-3">
     <a class="p-2 text-dark" [routerLink]="['/poke']">Pokemons</a>
   </nav>
-  <a class="btn btn-outline-primary" [routerLink]="['/poke/login']">Login</a>
-  <a class="btn btn-outline-primary" [routerLink]="['/poke/register']">Sign up</a>
+  <ng-container *ngIf="authService.currentUser | async; let user; else showLogin">
+    <span class="p-2">{{ user }}</span>
+    <button class="btn btn-outline-primary" (click)="authService.logoutUser()">Logout</button>
+  </ng-container>
+  <ng-template #showLogin>
+    <a class="btn btn-outline-primary" [routerLink]="['/poke/login']">Login</a>
+    <a class="btn btn-outline-primary" [routerLink]="['/poke/register']">Sign up</a>
+  </ng-template>
 </div>
 
 <router-outlet></router-outlet>
