@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,7 @@ export class HomeComponent {
   pokemonTypes: string[];
   shiny: boolean = false;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     this.pokemonTypes = [
       'normal',
       'fighting',
@@ -74,8 +75,7 @@ export class HomeComponent {
           this.shiny = false;
         },
         error: (err) => {
-          console.log(err);
-          alert('Server Error');
+          this.redirect(err.status);
         },
       });
   }
@@ -89,8 +89,7 @@ export class HomeComponent {
           this.shiny = false;
         },
         error: (err) => {
-          console.log(err);
-          alert('Server Error');
+          this.redirect(err.status);
         },
       });
   }
@@ -104,9 +103,16 @@ export class HomeComponent {
           this.shiny = true;
         },
         error: (err) => {
-          console.log(err);
-          alert('Server Error');
+          this.redirect(err.status);
         },
       });
+  }
+
+  async redirect(statusCode: number) {
+    if (statusCode == 401) {
+      await this.router.navigate(['/poke/login']);
+    } else {
+      alert('Server Error');
+    }
   }
 }

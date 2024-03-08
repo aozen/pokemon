@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -14,7 +15,7 @@ export class AuthService {
   }
 
   // Constructor didnt worked. I did some researched and changed a little.
-  constructor() {
+  constructor(private router: Router) {
     const currentUser = localStorage.getItem('currentUser');
     if (currentUser) {
       this.currentUserSubject = new BehaviorSubject<any>(
@@ -33,5 +34,6 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
+    this.router.navigate(['/poke/login'])
   }
 }
