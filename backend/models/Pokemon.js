@@ -22,7 +22,7 @@ const pokemonSchema = new mongoose.Schema({
     type: [],
     required: true,
   },
-  default_image: {
+  image: {
     type: String,
     required: true,
   },

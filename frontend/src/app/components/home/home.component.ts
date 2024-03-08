@@ -8,8 +8,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
-  pokemons!: object;
+  pokemons!: any;
   pokemonTypes: string[];
+  shiny: boolean = false;
 
   constructor(private http: HttpClient) {
     this.pokemonTypes = [
@@ -70,6 +71,7 @@ export class HomeComponent {
       .subscribe({
         next: (resp) => {
           this.pokemons = resp.pokemons;
+          this.shiny = false;
         },
         error: (err) => {
           console.log(err);
@@ -84,6 +86,7 @@ export class HomeComponent {
       .subscribe({
         next: (resp) => {
           this.pokemons = resp.pokemons;
+          this.shiny = false;
         },
         error: (err) => {
           console.log(err);
@@ -98,6 +101,7 @@ export class HomeComponent {
       .subscribe({
         next: (resp) => {
           this.pokemons = resp.pokemons;
+          this.shiny = true;
         },
         error: (err) => {
           console.log(err);

@@ -34,7 +34,7 @@
     <h3>Filter by generation</h3>
 
     <form [formGroup]="generationForm" (ngSubmit)="getPokemons()">
-      <label for="password">Generation: </label>
+      <label for="generation">Generation: </label>
       <select id="generation" formControlName="generation">
         <option value="1" selected>Generation 1</option>
         <option value="2">Generation 2</option>
@@ -99,21 +99,22 @@
   </div>
 </div>
 <div class="layout">
-  <div class="poke-li" *ngFor="let pokemon of pokemons | keyvalue">
+  <div class="poke-li" *ngFor="let pokemon of pokemons">
     <p class="poke-p">
-      <img class="poke-image" src="{{ pokemon.value['default_image'] }}" />
+      <img
+        class="poke-image"
+        src="{{ !shiny ? pokemon.image : pokemon.shiny_image }}"
+      />
     </p>
 
     <div class="pokemon-info">
       <p class="id">
-        <span class="number-prefix">#</span>{{ pokemon.value["id_value"] }}
+        <span class="number-prefix">#</span>{{ pokemon.id_value }}
       </p>
-      <h5>{{ pokemon.value["name"] }}</h5>
-      <div *ngFor="let type of pokemon.value['type'] | keyvalue">
+      <h5>{{ pokemon.name }}</h5>
+      <div *ngFor="let type of pokemon.type">
         <div class="abilities">
-          <span class="pill background-color-{{ type.value }}">
-            {{ type.value }}</span
-          >
+          <span class="pill background-color-{{ type }}"> {{ type }}</span>
         </div>
       </div>
     </div>
