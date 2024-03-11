@@ -1,6 +1,5 @@
 const express = require("express");
 const authController = require("../controllers/authController");
-const { verifyToken } = require("../middleware/authMiddleware");
 const {
   registerValidator,
   loginValidator,
