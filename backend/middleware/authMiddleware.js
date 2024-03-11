@@ -6,7 +6,7 @@ require("dotenv").config({ path: path.resolve(__dirname, "../../.env") });
  * Checks Authorization header and validate existing token
  */
 function verifyToken(req, res, next) {
-  var token = req.header("Authorization");
+  let token = req.header("Authorization");
   if (!token) {
     return res.status(401).json({ message: "Unauthorized" });
   }

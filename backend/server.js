@@ -13,7 +13,7 @@ db.on("error", (error) => {
 
 db.on("open", () => console.log("Database connection established"));
 
-var app = express();
+const app = express();
 app
   .use(cors())
   .use(express.json())
