@@ -10,6 +10,8 @@ import { AuthService } from 'src/app/auth.service';
   styleUrls: ['./login-page.component.css'],
 })
 export class LoginPageComponent {
+  errorMessages: any;
+
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -34,8 +36,7 @@ export class LoginPageComponent {
           this.router.navigate(['/poke']);
         },
         error: (err) => {
-          console.log(err.error.message);
-          alert('Error, try again');
+          this.errorMessages = err.error.errors;
         },
       });
   }

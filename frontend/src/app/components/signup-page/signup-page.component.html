@@ -3,18 +3,22 @@
     <h2>Register</h2>
     <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
       <input id="email" type="email" formControlName="email" placeholder="Email"/>
-      <div *ngIf="signUpForm.controls.email.invalid && (signUpForm.controls.email.dirty || signUpForm.controls.email.touched)">
+      <div class="alert alert-warning" role="alert" *ngIf="signUpForm.controls.email.invalid && (signUpForm.controls.email.dirty || signUpForm.controls.email.touched)">
         <div *ngIf="signUpForm.controls.email.errors?.['required']">email is required.</div>
         <div *ngIf="signUpForm.controls.email.errors?.['email']">Please email</div>
       </div><br />
 
       <input type="password" id="password" formControlName="password" placeholder="Password">
-      <div *ngIf="signUpForm.controls.password.invalid && (signUpForm.controls.password.dirty || signUpForm.controls.password.touched)">
+      <div class="alert alert-warning" role="alert" *ngIf="signUpForm.controls.password.invalid && (signUpForm.controls.password.dirty || signUpForm.controls.password.touched)">
         <div *ngIf="signUpForm.controls.password.errors?.['required']">password is required.</div>
         <div *ngIf="signUpForm.controls.password.errors?.['minlength']">At least 6 char</div>
       </div><br />
 
       <button type="submit" [disabled]="!signUpForm.valid">REGISTER</button>
+      <div *ngIf="errorMessages">
+        <br/>
+        <div *ngFor="let errorMessage of errorMessages" class="alert alert-danger" role="alert"> {{ errorMessage }} </div>
+      </div>
     </form>
   </div>
 </div>

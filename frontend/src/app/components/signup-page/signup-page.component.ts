@@ -15,6 +15,8 @@ import { AuthService } from 'src/app/auth.service';
   styleUrls: ['./signup-page.component.css'],
 })
 export class SignupPageComponent {
+  errorMessages: any;
+
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -37,8 +39,7 @@ export class SignupPageComponent {
           this.router.navigate(['/poke/login']);
         },
         error: (err) => {
-          console.log(err.error.message);
-          alert('Error, try again');
+          this.errorMessages = err.error.errors;
         },
       });
   }

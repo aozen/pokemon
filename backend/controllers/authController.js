@@ -9,8 +9,11 @@ const register = async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      console.log(errors);
-      return res.status(400).json({ errors: errors });
+      const validationErrors = [];
+      errors.array().map((error) => {
+        validationErrors.push(error.msg);
+      });
+      return res.status(400).json({ errors: validationErrors });
     }
 
     const email = req.body.email;
@@ -19,7 +22,7 @@ const register = async (req, res) => {
     // Check user exists
     const user = await User.findOne({ email });
     if (user) {
-      return res.status(400).json({ message: "email is already taken" });
+      return res.status(400).json({ errors: ["email is already taken"] });
     }
 
     // Hash password
@@ -34,10 +37,10 @@ const register = async (req, res) => {
     // Save created user to the db
     await newUser.save();
 
-    res.status(201).json({ message: "User registered successfully" });
+    res.status(201).json({ message: ["User registered successfully"] });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ errors: ["Server Error"] });
   }
 };
 
@@ -45,7 +48,11 @@ const login = async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors });
+      const validationErrors = [];
+      errors.array().map((error) => {
+        validationErrors.push(error.msg);
+      });
+      return res.status(400).json({ errors: validationErrors });
     }
     const email = req.body.email;
     const password = req.body.password;
@@ -53,13 +60,13 @@ const login = async (req, res) => {
     // Check user exists
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(401).json({ message: "Authentication failed" });
+      return res.status(401).json({ errors: ["Authentication failed"] });
     }
 
     // Check password matches
     const isPasswordMatches = await bcrypt.compare(password, user.password);
     if (!isPasswordMatches) {
-      return res.status(401).json({ message: "Authentication failed" });
+      return res.status(401).json({ errors: ["Authentication failed"] });
     }
 
     // Create JWT Token
@@ -70,12 +77,10 @@ const login = async (req, res) => {
 
     res.status(200).json({ token });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ errors: ["Authentication failed"] });
   }
 };
 
-// TODO: Check best practice?
 module.exports = {
   register,
   login,
