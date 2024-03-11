@@ -16,7 +16,11 @@ export class LoginPageComponent {
     private router: Router,
     private http: HttpClient,
     private authService: AuthService
-  ) {}
+  ) {
+    if(this.authService.currentUser) {
+      this.router.navigate(['/poke']);
+    }
+  }
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),

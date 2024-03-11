@@ -21,7 +21,11 @@ export class SignupPageComponent {
     private router: Router,
     private http: HttpClient,
     private authService: AuthService
-  ) {}
+  ) {
+    if(this.authService.isLoggedIn) {
+      this.router.navigate(['/poke']);
+    }
+  }
 
   signUpForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
