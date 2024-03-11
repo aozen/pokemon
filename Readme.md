@@ -2,6 +2,8 @@
 
 This project is designed for storing pokemons from an external api service. Also on the frontend pokemons will be display to loggedin users.
 
+Postman Api Collection exported. Check `Pokemon.postman_collection.json`
+
 ## Api
 
 Api address: <https://pokeapi.co/docs/v2>
