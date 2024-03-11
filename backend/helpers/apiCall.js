@@ -1,5 +1,10 @@
 const https = require("https");
 
+/**
+ * Make an api call to given url
+ *  
+ * @param { string } url 
+ */
 const apiCall = (url) => {
   return new Promise((resolve, reject) => {
     const req = https.request(url, (res) => {

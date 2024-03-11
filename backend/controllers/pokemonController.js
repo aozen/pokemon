@@ -10,6 +10,9 @@ const pokemonsByGenerationApiLinks = {
   3: "https://pokeapi.co/api/v2/pokemon?offset=251&limit=135",
 };
 
+/**
+ *  Fetchs pokemons from an external api and stores into database  
+ */
 const updatePokemons = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -27,6 +30,10 @@ const updatePokemons = async (req, res) => {
   return res.status(200).json({ message: "OK" });
 };
 
+/**
+ * @params { string } generation - 1,2 or 3
+ * @returns { Object} If successful list of pokemons, Otherwise empty object
+ */
 const fetchPokemons = async (generation) => {
   try {
     const pokemonInfos = await fetchPokemonListByGeneration(generation);
@@ -36,14 +43,17 @@ const fetchPokemons = async (generation) => {
     });
 
     const pokemonsData = await Promise.all(pokemonPromises);
-
     return pokemonsData;
   } catch (error) {
     console.error("Error updating Pokemon:", error);
-    return [];
+    return {};
   }
 };
 
+/**
+ * @params { string } generation - 1,2 or 3
+ * @returns { Promise } If successful returns promise, Otherwise void
+ */
 const fetchPokemonListByGeneration = (generation) => {
   const apiLink = pokemonsByGenerationApiLinks[generation];
 
@@ -57,6 +67,12 @@ const fetchPokemonListByGeneration = (generation) => {
   return apiCall(url);
 };
 
+/**
+ * 
+ * @param { Object } pokemons - List of pokemons
+ * @param { String } generation - 1,2 or 3
+ * @returns { void }
+ */
 const updatePokemonsTable = async (pokemons, generation) => {
   pokemons.forEach(async (pokemon) => {
     let typesArray = pokemon.types.map((types) => types.type.name);
@@ -101,6 +117,10 @@ const updatePokemonsTable = async (pokemons, generation) => {
   });
 };
 
+/**
+ * Filter pokemons by generation.
+ * Sort by ascending id_value.
+ */
 const getPokemons = async (req, res) => {
   const pokemons = await Pokemon.find({ generation: req.body.generation }).sort(
     { id_value: 1 }
@@ -109,6 +129,10 @@ const getPokemons = async (req, res) => {
   return res.status(200).json({ message: "OK", pokemons: pokemons });
 };
 
+/**
+ * Filter pokemons by type.
+ * Sort by ascending id_value.
+ */
 const getByType = async (req, res) => {
   const pokemons = await Pokemon.find({ type: req.body.type }).sort({
     id_value: 1,
@@ -117,6 +141,9 @@ const getByType = async (req, res) => {
   return res.status(200).json({ message: "OK", pokemons: pokemons });
 };
 
+/**
+ * Find random one pokemon which has shiny_image attributes
+ */
 const getShiny = async (req, res) => {
   const shinyCount = await Pokemon.countDocuments({
     shiny_image: { $exists: true },

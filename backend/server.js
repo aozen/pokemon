@@ -1,5 +1,5 @@
 const express = require("express");
-const cors = require('cors')
+const cors = require("cors");
 const db = require("./db");
 const authRoutes = require("./routes/authRoutes");
 const pokemonRoutes = require("./routes/pokemonRoutes");
@@ -15,7 +15,6 @@ db.on("open", () => console.log("Database connection established"));
 
 var app = express();
 app
-  // .use(bodyParser.urlencoded({ extended: true }))
   .use(cors())
   .use(express.json())
   .use(express.urlencoded({ extended: false }))

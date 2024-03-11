@@ -52,8 +52,7 @@ export class HomeComponent {
     this.http
       .post<any>('http://localhost:3000/poke/update', this.generationForm.value)
       .subscribe({
-        next: (resp) => {
-          console.log(resp);
+        next: () => {
           alert('Updated! Lets view');
         },
         error: (err) => {
