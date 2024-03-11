@@ -18,14 +18,13 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
     const currentUser = this._auth.isLoggedIn
-    console.log(currentUser);
     if (currentUser) {
       // logged in so return true
       return true
     }
 
     // not logged in so redirect to login page with the return url
-    this.router.navigate(['/poke/login'], { queryParams: { returnUrl: state.url } })
+    this.router.navigate(['/poke/login'])
     return false
   }
 }
