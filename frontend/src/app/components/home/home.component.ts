@@ -97,7 +97,7 @@ export class HomeComponent {
 
   getShinyPokemon() {
     this.http
-      .post<any>('http://localhost:3000/poke/random', this.typeForm.value)
+      .get<any>('http://localhost:3000/poke/random')
       .subscribe({
         next: (resp) => {
           this.pokemons = [resp.data];

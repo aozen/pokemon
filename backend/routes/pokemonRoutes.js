@@ -29,6 +29,6 @@ router.post(
   pokemonController.getByType
 );
 
-router.post('/random', verifyToken, pokemonController.getShiny);
+router.get('/random', verifyToken, pokemonController.getShiny);
 
 module.exports = router;
