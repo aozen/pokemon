@@ -122,33 +122,7 @@ const getPokemons = async (req, res) => {
  * Sort by ascending id_value.
  */
 const getByType = async (req, res) => {
-  const pokemonTypes = [
-    'normal',
-    'fighting',
-    'flying',
-    'poison',
-    'ground',
-    'rock',
-    'bug',
-    'ghost',
-    'steel',
-    'fire',
-    'water',
-    'grass',
-    'electric',
-    'psychic',
-    'ice',
-    'dragon',
-    'dark',
-    'fairy',
-    'shadow',
-  ];
-
-  if (!pokemonTypes.includes(req.body.type)) {
-    return res.status(200).json({ message: 'ERROR.INVALID_TYPE' });
-  }
   const pokemons = await pokemonRepo.findAllByType(req.body.type);
-
   return res.status(200).json({ message: 'OK', data: pokemons });
 };
 
