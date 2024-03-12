@@ -39,7 +39,11 @@ export class SignupPageComponent {
     this.http
       .post<any>('http://localhost:3000/poke/register', this.signUpForm.value)
       .subscribe({
-        next: () => {
+        next: (resp) => {
+          if(resp.message !== 'OK') {
+            this.errorMessages = [resp.message];
+            return;
+          }
           this.router.navigate(['/poke/login']);
         },
         error: (err) => {

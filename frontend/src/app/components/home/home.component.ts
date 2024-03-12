@@ -52,12 +52,14 @@ export class HomeComponent {
     this.http
       .post<any>('http://localhost:3000/poke/update', this.generationForm.value)
       .subscribe({
-        next: () => {
-          alert('Updated! Lets view');
+        next: (resp) => {
+          alert(resp.message);
+          if(resp.message !== 'OK') {
+            return;
+          }
         },
         error: (err) => {
-          console.log(err);
-          alert('Server Error');
+          alert(err.message);
         },
       });
   }

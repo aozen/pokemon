@@ -35,6 +35,10 @@ export class LoginPageComponent {
       .post<any>('http://localhost:3000/poke/login', this.loginForm.value)
       .subscribe({
         next: (resp) => {
+          if(resp.message !== 'OK') {
+            this.errorMessages = [resp.message];
+            return;
+          }
           localStorage.setItem('token', JSON.stringify(resp.data));
           this.authService.loginUser(this.loginForm.value.email);
           this.router.navigate(['/poke']);
