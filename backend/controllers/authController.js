@@ -1,7 +1,6 @@
-const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { validationResult } = require("express-validator");
+const userRepo = require("../repositories/user.repository");
 const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, "../../.env") });
 
@@ -11,24 +10,21 @@ const register = async (req, res) => {
     const password = req.body.password;
 
     // Check user exists
-    const user = await User.findOne({ email });
-    if (user) {
+    const existingUser = await userRepo.findOneByEmail(email);
+    if (existingUser) {
       return res.status(200).json({ message: 'ERROR.EMAIL_TAKEN' });
     }
 
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create a new user
-    const newUser = new User({
-      email,
-      password: hashedPassword,
-    });
+    // Create a user object
+    const newUserObj = { email, password: hashedPassword };
 
-    // Save created user to the db
-    await newUser.save();
+    // Save user to the db
+    const user = await userRepo.create(newUserObj);
 
-    res.status(201).json({ message: 'OK' });
+    res.status(201).json({ message: 'OK', data: user });
   } catch (error) {
     res.status(500).json({ message: 'ERROR.SYSTEM_ERROR' });
   }
@@ -40,7 +36,7 @@ const login = async (req, res) => {
     const password = req.body.password;
 
     // Check user exists
-    const user = await User.findOne({ email });
+    const user = await userRepo.findOneByEmail(email);
     if (!user) {
       return res.status(200).json({ message: 'ERROR.USER_NOT_FOUND' });
     }
