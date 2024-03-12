@@ -14,11 +14,6 @@ const pokemonsByGenerationApiLinks = {
  *  Fetchs pokemons from an external api and stores into database  
  */
 const updatePokemons = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors });
-  }
-
   const pokemons = await fetchPokemons(req.body.generation);
 
   try {

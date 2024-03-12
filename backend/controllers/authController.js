@@ -7,15 +7,6 @@ require("dotenv").config({ path: path.resolve(__dirname, "../../.env") });
 
 const register = async (req, res) => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      const validationErrors = [];
-      errors.array().map((error) => {
-        validationErrors.push(error.msg);
-      });
-      return res.status(400).json({ errors: validationErrors });
-    }
-
     const email = req.body.email;
     const password = req.body.password;
 
@@ -46,14 +37,6 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      const validationErrors = [];
-      errors.array().map((error) => {
-        validationErrors.push(error.msg);
-      });
-      return res.status(400).json({ errors: validationErrors });
-    }
     const email = req.body.email;
     const password = req.body.password;
 
