@@ -70,7 +70,7 @@ export class HomeComponent {
       )
       .subscribe({
         next: (resp) => {
-          this.pokemons = resp.pokemons;
+          this.pokemons = resp.data;
           this.shiny = false;
         },
         error: (err) => {
@@ -84,7 +84,7 @@ export class HomeComponent {
       .post<any>('http://localhost:3000/poke/type', this.typeForm.value)
       .subscribe({
         next: (resp) => {
-          this.pokemons = resp.pokemons;
+          this.pokemons = resp.data;
           this.shiny = false;
         },
         error: (err) => {
@@ -98,7 +98,7 @@ export class HomeComponent {
       .post<any>('http://localhost:3000/poke/random', this.typeForm.value)
       .subscribe({
         next: (resp) => {
-          this.pokemons = resp.pokemons;
+          this.pokemons = [resp.data];
           this.shiny = true;
         },
         error: (err) => {

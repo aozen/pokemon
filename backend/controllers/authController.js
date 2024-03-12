@@ -13,7 +13,7 @@ const register = async (req, res) => {
     // Check user exists
     const user = await User.findOne({ email });
     if (user) {
-      return res.status(400).json({ errors: ["email is already taken"] });
+      return res.status(200).json({ message: 'ERROR.EMAIL_TAKEN' });
     }
 
     // Hash password
@@ -28,10 +28,9 @@ const register = async (req, res) => {
     // Save created user to the db
     await newUser.save();
 
-    res.status(201).json({ message: ["User registered successfully"] });
+    res.status(201).json({ message: 'OK' });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ errors: ["Server Error"] });
+    res.status(500).json({ message: 'ERROR.SYSTEM_ERROR' });
   }
 };
 
@@ -43,13 +42,13 @@ const login = async (req, res) => {
     // Check user exists
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(401).json({ errors: ["Authentication failed"] });
+      return res.status(200).json({ message: 'ERROR.USER_NOT_FOUND' });
     }
 
     // Check password matches
     const isPasswordMatches = await bcrypt.compare(password, user.password);
     if (!isPasswordMatches) {
-      return res.status(401).json({ errors: ["Authentication failed"] });
+      return res.status(200).json({ message: 'ERROR.WRONG_EMAIL_OR_PASSWORD' });
     }
 
     // Create JWT Token
@@ -58,9 +57,9 @@ const login = async (req, res) => {
       expiresIn: "10m",
     });
 
-    res.status(200).json({ token });
+    res.status(200).json({ message: 'OK', data: token });
   } catch (error) {
-    res.status(500).json({ errors: ["Authentication failed"] });
+    res.status(500).json({ message: 'ERROR.SYSTEM_ERROR' });
   }
 };
 

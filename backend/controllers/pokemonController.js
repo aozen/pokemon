@@ -11,7 +11,7 @@ const pokemonsByGenerationApiLinks = {
 };
 
 /**
- *  Fetchs pokemons from an external api and stores into database  
+ *  Fetchs pokemons from an external api and stores into database
  */
 const updatePokemons = async (req, res) => {
   const pokemons = await fetchPokemons(req.body.generation);
@@ -19,10 +19,9 @@ const updatePokemons = async (req, res) => {
   try {
     updatePokemonsTable(pokemons, req.body.generation);
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: "Server Error" });
+    return res.status(500).json({ message: 'ERROR.SYSTEM_ERROR' });
   }
-  return res.status(200).json({ message: "OK" });
+  return res.status(200).json({ message: 'OK' });
 };
 
 /**
@@ -63,7 +62,7 @@ const fetchPokemonListByGeneration = (generation) => {
 };
 
 /**
- * 
+ *
  * @param { Object } pokemons - List of pokemons
  * @param { String } generation - 1,2 or 3
  * @returns { void }
@@ -121,7 +120,7 @@ const getPokemons = async (req, res) => {
     { id_value: 1 }
   );
 
-  return res.status(200).json({ message: "OK", pokemons: pokemons });
+  return res.status(200).json({ message: 'OK', data: pokemons });
 };
 
 /**
@@ -151,14 +150,14 @@ const getByType = async (req, res) => {
     'shadow',
   ];
 
-  if(!pokemonTypes.includes(req.body.type)) {
-    return res.status(200).json({ error: "Invalid Type" });
+  if (!pokemonTypes.includes(req.body.type)) {
+    return res.status(200).json({ message: 'ERROR.INVALID_TYPE' });
   }
   const pokemons = await Pokemon.find({ type: req.body.type }).sort({
     id_value: 1,
   });
 
-  return res.status(200).json({ message: "OK", pokemons: pokemons });
+  return res.status(200).json({ message: 'OK', data: pokemons });
 };
 
 /**
@@ -173,12 +172,12 @@ const getShiny = async (req, res) => {
     shiny_image: { $exists: true },
   }).skip(randomIndex);
   if (!randomShinyPokemon) {
-    return res.status(404).json({ message: "No shiny Pokemon found" });
+    return res.status(200).json({ message: 'ERROR.SHINY_NOT_FOUND' });
   }
 
   return res
     .status(200)
-    .json({ message: "OK", pokemons: [randomShinyPokemon] });
+    .json({ message: 'OK', data: randomShinyPokemon });
 };
 
 module.exports = {
