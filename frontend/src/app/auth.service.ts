@@ -6,7 +6,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  // Class, variables copied from eloaded/app-admin
   public currentUserSubject = new BehaviorSubject<any | null>(null);
   public currentUser: Observable<any> = this.currentUserSubject.asObservable();
 
@@ -14,7 +13,6 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  // Constructor didnt worked. I did some researched and changed a little.
   constructor(private router: Router) {
     const currentUser = localStorage.getItem('currentUser');
     if (currentUser) {

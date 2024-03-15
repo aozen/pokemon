@@ -3,7 +3,6 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/c
 import { Observable } from 'rxjs'
 
 @Injectable()
-// Copied from app-admin and changed a little 
 export class JwtInterceptor implements HttpInterceptor {
   intercept
   (request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
